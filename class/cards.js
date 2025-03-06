@@ -149,7 +149,7 @@ exports.regions = [
             chimera: 1,
         },
         fame: {
-            per: 'wonderSet',
+            per: 'colorSet',
             score: 10,
         },
     },

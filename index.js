@@ -141,7 +141,7 @@ function countPoints(player){
 
   let total = {
     stone: 0,
-    map: 0,
+    clue: 0,
     chimera: 0,
     thistle: 0,
     red: 0,
@@ -167,7 +167,7 @@ function countPoints(player){
       total.thistle+=sanctuary.wonders.thistle;
     }
     if(sanctuary.clue){
-      total.map++;
+      total.clue++;
     }
     if(sanctuary.biome == "red"){
       total.red++;
@@ -189,7 +189,7 @@ function countPoints(player){
     }
   }
 
-  for(let j = 7; j > 0; j--){
+  for(let j = 7; j >= 0; j--){
     let region = regions[player.playedCards[j]];
     if(region.wonders && region.wonders.stone){
       total.stone+=region.wonders.stone;
@@ -201,7 +201,7 @@ function countPoints(player){
       total.thistle+=region.wonders.thistle;
     }
     if(region.clue){
-      total.map++;
+      total.clue++;
     }
     if(region.biome == "red"){
       total.red++;
@@ -228,13 +228,14 @@ function countPoints(player){
 
     let tempScore = 0;
     if(region.fame && (!region.quest || region.quest && checkQuest(total, region.quest))){
+      console.log(region.number)
       if(typeof region.fame.per == 'string'){
         tempScore+=total[region.fame.per]*region.fame.score;
-      }else if(typeof region.fame.per == 'number'){
-        tempScore+=region.fame.per;
+      }else if(typeof region.fame == 'number'){
+        tempScore+=region.fame;
       }else if(typeof region.fame.per == 'object'){
-        for(let [_, item] in Object.entries(region.fame.per)){
-          tempScore+=total[item]*region.fame.per.score;
+        for(const prop in region.fame.per){
+          tempScore+=total[region.fame.per[prop]]*region.fame.score;
         }
       }
     }
@@ -249,11 +250,11 @@ function countPoints(player){
     if(sanctuary.fame){
       if(typeof sanctuary.fame.per == 'string'){
         tempScore+=total[sanctuary.fame.per]*sanctuary.fame.score;
-      }else if(typeof sanctuary.fame.per == 'number'){
-        tempScore+=sanctuary.fame.per;
+      }else if(typeof sanctuary.fame == 'number'){
+        tempScore+=sanctuary.fame;
       }else if(typeof sanctuary.fame.per == 'object'){
-        for(let [_, item] in Object.entries(sanctuary.fame.per)){
-          tempScore+=total[item]*sanctuary.fame.per.score;
+        for(const item in sanctuary.fame.per){
+          tempScore+=total[sanctuary.fame.per[item]]*sanctuary.fame.score;
         }
       }
     }
@@ -265,8 +266,11 @@ function countPoints(player){
 }
 
 function checkQuest(total, quest){
-  for(let [item, amount] in Object.entries(quest)){
-    if(total[item] >= amount){
+  for(const questItem in quest){
+    console.log(questItem)
+    console.log(total[questItem])
+    console.log(quest[questItem])
+    if(total[questItem] < quest[questItem]){
       return false;
     }
   }
@@ -356,7 +360,6 @@ function leaveRoom(socket){
 
 function locatePlayer(socketId){
   for (let room in rooms) {
-    console.log(room)
     if (rooms[room].users.includes(socketId)) {
       return room;
     }
@@ -364,8 +367,11 @@ function locatePlayer(socketId){
 }
 
 io.on('connection', (socket) => {
-  socket.emit("wellConnected")
+  socket.emit("wellConnected");
   socket.emit("rooms", rooms);
+  socket.on("getRooms", ()=>{
+    socket.emit("rooms", rooms);
+  });
 
   socket.on('disconnect', function () {
     //find all rooms where the socket.id is in, and removes him (if the room is empty delete it)
@@ -398,7 +404,6 @@ io.on('connection', (socket) => {
 
       socket.join(msg);
       rooms[msg].users.push(socket.id);
-      console.log(rooms)
       //if room lenght = 2, start the game
       if (rooms[msg].users.length == 2) {
         beginGame(msg);

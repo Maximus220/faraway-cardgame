@@ -9,8 +9,7 @@
 #content{
   display:flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
   width: 100vw;
 }
 </style>

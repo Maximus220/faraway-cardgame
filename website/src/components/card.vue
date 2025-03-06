@@ -23,8 +23,8 @@ export default{
 
 <template>
     <div v-if="!isPlaceholder">
-        <img :src="'../../public/'+(isSanctuary?'sanctuary/':'region/')+'tile'+(isSanctuary?String(id+1).padStart(3, '0'):String(id).padStart(3, '0'))+'.jpg'" v-if="!isFlipped" @click="cardClicked" :class="{'sanctuary':isSanctuary}" />
-        <img src="../../public/flipped.jpg" v-else/>
+        <img :src="'../../'+(isSanctuary?'sanctuary/':'region/')+'tile'+(isSanctuary?String(id+1).padStart(3, '0'):String(id).padStart(3, '0'))+'.jpg'" v-if="!isFlipped" @click="cardClicked" :class="{'sanctuary':isSanctuary}" />
+        <img src="../../flipped.jpg" v-else/>
         
     </div>
     <div class="placeHolder" v-else>
@@ -48,7 +48,8 @@ img:hover{
 }
 img{
     width: 10vw;
-    height: 10vw;
+    max-width: 150px;
+    height: auto;
     border-radius: 20px;
 }
 .placeHolder{
@@ -57,7 +58,9 @@ img{
     align-items: center;
     color: var(--main);
     width: 10vw;
-    height: 10vw;
+    max-width: 150px;
+    height:10vw;
+    max-height: 150px;
     border-radius: 20px;
     border: solid 2px var(--grey);
 }

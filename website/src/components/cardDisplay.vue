@@ -31,8 +31,8 @@ export default{
 </script>
 
 <template>
-    <div class="cardDisplay">
-        <div class="cardGrid" :style="{'width': cardsNumber*11 + 'vw'}">
+    <div class="cardDisplay" :class="{'sanctuaryDisplayHead':isSanctuary}">
+        <div class="cardGrid" :style="{'width': cardsNumber*11 + 'vw', }" :class="{'sanctuaryDisplay':isSanctuary, 'scroll':isSanctuary}">
             <Card v-for="(card, i) in cards" :id="card" :isSanctuary="isSanctuary" :isFlipped="flipped" :isLocked="locked.includes(i)" @cardClicked="cardClickedHandle"/>
             <Card v-if="fill" v-for="i in cardsNumber-cards.length" :isPlaceholder="true" :placeHolderNumber="cardsNumber-cards.length-i+1"/>
             <div v-if="cards.length == 0 && isSanctuary" class="sanctuaryText">No sanctuaries, yet!</div>
@@ -42,6 +42,18 @@ export default{
 
 
 <style scoped>
+.sanctuaryDisplayHead{
+    padding: 1vw !important;
+}
+.sanctuaryDisplay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: row !important;
+    overflow-y:hidden;
+    flex-wrap: nowrap !important;
+}
 .sanctuaryText{
     color: var(--grey);
     font-size: 1.5em;
@@ -72,7 +84,7 @@ export default{
     align-items: center;
     gap: 10px;
     max-height: 47vh;
-    max-width: 47vw;
+    max-width:47vw;
     overflow-x: auto;
 }
 @media (max-width: 800px){

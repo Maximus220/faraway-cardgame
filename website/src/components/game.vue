@@ -129,7 +129,7 @@ export default{
             
             <div class="room">
                 <h2>Room: {{ roomId }}</h2>
-                <img class="smallImg" @click="copyUrl" src="../../public/clipboard.svg" />
+                <img class="smallImg" @click="copyUrl" src="../../clipboard.svg" />
             </div>
 
             <div class="btn" @click="leaveRoom">Leave room</div>
@@ -156,29 +156,29 @@ export default{
                 <cardDisplay cardsNumber="4" :cards="game.shop" :fill="false" @cardClicked="shopClickedHandle"/>
             </div>
             <div class="centerDiv" v-else>
-                <!-- display the score as a vertical table with the score of each round (player 1 : game.score[0].round / player 2 : game.score[1].round), and at last the total (game.score[].total) -->
+                <!-- display the score as a horizontal table with the score of each round (player 1 : game.score[0].round / player 2 : game.score[1].round), and at last the total (game.score[].total) -->
                 <table class="scoreTable">
                     <thead>
                         <tr>
-                            <th>Round</th>
-                            <th>Player 1</th>
-                            <th>Player 2</th>
+                            <th></th>
+                            <th v-for="(round, index) in game.score[0].round" :key="index">{{index!=8?'Round '+ (index + 1):'Sanctuaries' }}</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(round, index) in game.score[0].rounds" :key="index">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ round }}</td>
-                            <td>{{ game.score[1].rounds[index] }}</td>
+                        <tr>
+                            <td>Player 1</td>
+                            <td v-for="(round, index) in game.score[0].round" :key="index">{{ round }}</td>
+                            <td>{{ game.score[0].total }}</td>
                         </tr>
                         <tr>
-                            <td>Total</td>
-                            <td>{{ game.score[0].total }}</td>
+                            <td>Player 2</td>
+                            <td v-for="(round, index) in game.score[1].round" :key="index">{{ round }}</td>
                             <td>{{ game.score[1].total }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="btn" @click="leaveRoom">Leave room</div>
+                <!-- <div class="btn" @click="leaveRoom">Leave room</div> -->
             </div>
             <div class="playerHand">
                 <!-- Placed cards -->
@@ -195,25 +195,31 @@ export default{
 </template>
 
 <style scoped>
+.mainDiv{
+    padding: 20px;
+}
 .sideCards{
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 .centerDiv{
-    width:100%;
-    display:flex;
+    width: 100%;
+    display: flex;
     flex-direction: row;
-    gap:5vw;
+    gap: 5vw;
     justify-content: flex-end;
     align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 .gameState{
     border: solid 2px var(--main);
     border-radius: 15px;
     padding: 20px;
     height: 100%;
-    width:100%;
+    width: 100%;
+    white-space: nowrap;
 }
 .gameState > h3{
     color: var(--grey)
@@ -228,6 +234,8 @@ export default{
     display:flex;
     flex-direction: row;
     gap: 5vw;
+    justify-content: center;
+    align-items: center;
 }
 /* responsive make it a column */
 @media (max-width: 800px){
@@ -261,12 +269,13 @@ export default{
     align-items: center;
     width:100%;
     gap:50px;
+    height:100vh;
 }
 .scoreTable {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 1.2em;
+    font-size: 1em;
     text-align: center;
 }
 .scoreTable th, .scoreTable td {
@@ -278,10 +287,7 @@ export default{
     color: #ffffff;
     text-align: center;
 }
-.scoreTable tbody tr:nth-child(even) {
-    background-color: #f3f3f3;
-}
-.scoreTable tbody tr:hover {
-    background-color: #f1f1f1;
+.btn {
+    white-space: nowrap;
 }
 </style>

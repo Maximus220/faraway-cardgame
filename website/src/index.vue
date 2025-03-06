@@ -14,8 +14,9 @@ export default{
     },
     mounted(){
         socket.connect();
+        console.log("MOUNTED")
         socket.on('connect_error', err => console.log(err))
-        socket.emit("hello")
+        socket.emit("getRooms")
         socket.on("joinedRoom", (room) => {
             console.log("Joined room", room)
             this.$router.push("/game/" + room)
@@ -44,22 +45,33 @@ export default{
     <!-- Form, with text input of 5 character string, and button to submit, that will start the method joinGame(text) -->
      <div class="mainDiv">
         <h1>Rooms</h1>
-        <ul class="roomList">
-            <li v-for="(room, index) in Object.keys(rooms)" :key="index" @click="joinRoom(room)">
-                {{room}} : {{ rooms[room].users.length }} / 2
-            </li>
-            <div class="noRoom" v-if="Object.keys(rooms).length == 0">No available room</div>
-        </ul>
+        <div class="roomList">
+            <div class="innerRooms scroll">
+                <div class="inside" v-for="(room, index) in Object.keys(rooms)" :key="index" @click="joinRoom(room)">
+                    {{room}} : {{ rooms[room].users.length }} / 2
+                </div>
+                <div class="noRoom" v-if="Object.keys(rooms).length == 0">No available room</div>
+            </div>
+        </div>
         <div class="btn" @click="createRoom">Create room</div>
      </div>
 </template>
 
 <style scoped>
+.innerRooms{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height:100vh;
+    width: 80%;
+}
 .mainDiv{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content:center;
     gap: 20px;
+    height:100vh;
 }
 .noRoom{
     display: flex;
@@ -69,26 +81,39 @@ export default{
 }
 .roomList{
     list-style-type: none;
-    padding: 10px 40px;
+    /* padding: 10px 40px; */
     width: 20vw;
     border: solid 2px var(--grey);
     border-radius: 20px;
     height: 30vh;
     max-height:30vh;
     overflow-y: auto;
-}
-li{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.inside{
+    display: flex;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
     border: solid 2px var(--main);
     border-radius: 20px;
     cursor: pointer;
-    margin: 15px;
+    margin: 15px 0px;
+    width: 80%;
+    font-size: 0.8em;
+    text-wrap: nowrap;
 }
-li:hover{
+.inside:hover{
     background-color: var(--main);
     color: var(--white);
+}
+
+@media (max-width: 1000px){
+    .roomList{
+        width: 50vw !important;
+    }
 }
 </style>

@@ -45,9 +45,9 @@ body {
 }
 
 .scroll::-webkit-scrollbar-thumb {
-  background-color: var(--secondary-grey);
+  background-color: var(--grey);
 
-  border: 4px transparent solid;
+  border: 5px transparent solid;
   background-clip: padding-box;
   border-radius: 40px;
 }
