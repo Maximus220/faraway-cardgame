@@ -64,5 +64,14 @@ This project does **not** include an anti-cheat system because it was designed a
 
 This game was built **in just two days** as a speed challenge to see how quickly a functional online version could be made.
 
+## 💡 Contributions
+
+Anyone is welcome to suggest modifications, especially to the design, which was quickly done.
+
+## ✨ Creator & Contributors
+
+This project was created by [Maximus220](https://github.com/Maximus220).
+
 Enjoy the game! 🎴
+
 
