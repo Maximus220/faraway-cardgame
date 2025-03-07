@@ -8,7 +8,7 @@ The game was created in just **two days** as a challenge to build a functional o
 
 ## 📜 About the Game
 
-This is a web-based adaptation of the card game **Faraway**, created by **Aaron Andrew Wilson and W. David MacKenzie**. You can find more details about the game [here](https://boardgamegeek.com/boardgame/385761/faraway) and the original card data was sourced from [this repository](https://github.com/saifahn/faraway-cards/tree/main).
+This is a web-based adaptation of the card game **Faraway**, created by **Johannes Goupy and Corentin Lebrat**. You can find more details about the game [here](https://boardgamegeek.com/boardgame/385761/faraway) and the original card data was sourced from [this repository](https://github.com/saifahn/faraway-cards/tree/main).
 
 ## ⚙️ Project Setup
 
