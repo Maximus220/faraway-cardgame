@@ -22,21 +22,26 @@ export default{
 </script>
 
 <template>
-    <div v-if="!isPlaceholder">
-        <img :src="'../../'+(isSanctuary?'sanctuary/':'region/')+'tile'+(isSanctuary?String(id+1).padStart(3, '0'):String(id).padStart(3, '0'))+'.jpg'" v-if="!isFlipped" @click="cardClicked" :class="{'sanctuary':isSanctuary}" />
-        <img src="../../flipped.jpg" v-else/>
+    <div class="card">
+        <div v-if="!isPlaceholder">
+            <img :src="'../../'+(isSanctuary?'sanctuary/':'region/')+'tile'+(isSanctuary?String(id+1).padStart(3, '0'):String(id).padStart(3, '0'))+'.jpg'" v-if="!isFlipped" @click="cardClicked" :class="{'sanctuary':isSanctuary}" />
+            <img src="../../flipped.jpg" v-else/>
         
-    </div>
-    <div class="placeHolder" v-else>
-        {{ placeHolderNumber }}
+        </div>
+        <div class="placeHolder" v-else>
+            {{ placeHolderNumber }}
+        </div>
     </div>
     
 </template>
 
 <style scoped>
+
 .sanctuary{
-    width: 6.5vw !important;
+    /* width: 6.5vw !important; */
+    max-height: 10vh;
     border-radius: 15px;
+    width: auto !important;
 }
 img:hover{
     cursor: pointer;

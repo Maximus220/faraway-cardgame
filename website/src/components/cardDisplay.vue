@@ -43,22 +43,24 @@ export default{
 
 <style scoped>
 .sanctuaryDisplayHead{
-    padding: 1vw !important;
+    /* padding: 1vw !important; */
+    max-height: 16vh;
 }
 .sanctuaryDisplay{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start !important;
+    align-items: stretch !important; /* Ensures children take full height */
     gap: 10px;
     flex-direction: row !important;
-    overflow-y:hidden;
+    overflow-y: hidden;
     flex-wrap: nowrap !important;
+    height: 100%; /* Ensures it fills the parent */
 }
 .sanctuaryText{
     color: var(--grey);
     font-size: 1.5em;
     text-align: center;
-    height: 100%;
+    flex: 1; /* Makes it take the remaining space */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,9 +69,10 @@ export default{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     height:100%;
-    padding: 2vw;
+    padding: 0.8vw;
 
     max-width: 50vw;
 
@@ -84,8 +87,8 @@ export default{
     align-items: center;
     gap: 10px;
     max-height: 47vh;
-    max-width:47vw;
-    overflow-x: auto;
+    max-width:40vw;
+    /* overflow-x: auto; */
 }
 @media (max-width: 800px){
     .cardGrid{

@@ -150,8 +150,8 @@ export default{
             <div class="centerDiv" v-if="game.phase != 'end'">
                 <cardDisplay cardsNumber="3" :cards="userProfile.sanctuaryChoose" :fill="false" @cardClicked="sanctuaryChooseClick" :isSanctuary="true" v-if="game.phase == 'sanctuary' && userProfile.hasToChoose"/>
                 <div class="gameState" v-else>
-                    <h1 id="titleState">{{ titleState }}</h1>
-                    <h3 id="detailsState">{{ detailsState }}</h3>
+                    <div id="titleState">{{ titleState }}</div>
+                    <div id="detailsState">{{ detailsState }}</div>
                 </div>
                 <cardDisplay cardsNumber="4" :cards="game.shop" :fill="false" @cardClicked="shopClickedHandle"/>
             </div>
@@ -195,6 +195,14 @@ export default{
 </template>
 
 <style scoped>
+#titleState{
+    font-size: 2em;
+    font-weight: bold;
+}
+#detailsState{
+    font-size: 1.5em;
+    color: var(--grey);
+}
 .mainDiv{
     padding: 20px;
 }
@@ -202,6 +210,8 @@ export default{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    flex: 1; /* Makes it take the full available height */
+    min-height: 0; /* Prevents overflow issues */
 }
 .centerDiv{
     width: 100%;
@@ -212,6 +222,9 @@ export default{
     align-items: center;
     overflow-x: auto;
     white-space: nowrap;
+    height: 100%;
+    flex: 1; /* Make it take up the remaining space */
+    min-height: 0; /* Ensure it shrinks properly */
 }
 .gameState{
     border: solid 2px var(--main);
@@ -220,6 +233,13 @@ export default{
     height: 100%;
     width: 100%;
     white-space: nowrap;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.cardDisplay {
+    flex: 1;
 }
 .gameState > h3{
     color: var(--grey)
@@ -229,6 +249,7 @@ export default{
     flex-direction:column;
     gap:20px;
     align-items:center;
+    height: 95vh;
 }
 .playerHand{
     display:flex;
@@ -236,6 +257,8 @@ export default{
     gap: 5vw;
     justify-content: center;
     align-items: center;
+    max-height:36vh;
+    
 }
 /* responsive make it a column */
 @media (max-width: 800px){
