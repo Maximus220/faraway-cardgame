@@ -32,12 +32,13 @@ exports.regions = [
     {
         number: 4,
         biome: 'red',
-        wonders: { stone: 1, chimera: 1 },
+        wonders: { stone: 1, thistle: 1 },
     },
     {
         number: 5,
         biome: 'green',
         wonders: { chimera: 1 },
+        fame: 2,
     },
     {
         number: 6,
@@ -81,7 +82,7 @@ exports.regions = [
         biome: 'green',
         fame: {
             per: 'clue',
-            score: 3,
+            score: 2,
         },
     },
     {
@@ -103,6 +104,9 @@ exports.regions = [
     {
         number: 14,
         biome: 'red',
+        wonders: {
+            thistle: 1,
+        },
         fame: {
             per: 'night',
             score: 2,
@@ -410,7 +414,7 @@ exports.regions = [
         },
         fame: {
             per: 'night',
-            score: 10,
+            score: 3,
         },
     },
     {
@@ -663,6 +667,9 @@ exports.regions = [
         biome: 'green',
         quest: {
             chimera: 4,
+        },
+        wonders: {
+            thistle: 1,
         },
         fame: 17,
     },
