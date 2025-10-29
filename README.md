@@ -1,6 +1,6 @@
 # ♠️ Faraway - Web Implementation
 
-![Game in Progress](./demo/game.png)
+![Game in Progress](./demo/demo.png)
 
 A web-based implementation of the card game **Faraway**.
 
